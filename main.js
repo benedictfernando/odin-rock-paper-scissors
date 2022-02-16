@@ -1,54 +1,62 @@
 
+// return random computer move
 function computerPlay() {
-  let choices = ['rock', 'paper', 'scissors']
-  return choices[Math.floor(Math.random() * choices.length)]
+  let choices = ['rock', 'paper', 'scissors'];
+  return choices[Math.floor(Math.random() * choices.length)];
 }
 
+// prompt user for their pick
 function playerPlay() {
   let choice = prompt("What's your pick?").toLowerCase();
-
   while(true) {
-    if (choice == "rock"|| choice == "paper" || choice == "scissors") {
+    if (choice == "rock"|| choice == "paper" || choice == "scissors")
       return choice;
-    } else {
-      choice = prompt("Please enter valid input only.").toLowerCase();
-    }
+    else choice = prompt("Please enter valid input only.").toLowerCase();
   }
 }
 
+// determine round status for every round
 function playRound(playerSelection, computerSelection) {
   if (playerSelection == "rock" && computerSelection == "scissors") {
-    return "You win~ rock beats scissors!"
+    return "You win~ rock beats scissors!";
   } else if (playerSelection == "rock" && computerSelection == "paper") {
-    return "You lose~ paper beats rock!"
+    return "You lose~ paper beats rock!";
   } else if (playerSelection == "scissors" && computerSelection == "paper") {
-    return "You win~ scissors beats paper!"
+    return "You win~ scissors beats paper!";
   } else if (playerSelection == "scissors" && computerSelection == "rock") {
-    return "You lose~ rock beats scissors!"
+    return "You lose~ rock beats scissors!";
   } else if (playerSelection == "paper" && computerSelection == "rock") {
-    return "You win~ paper beats rock!"
+    return "You win~ paper beats rock!";
   } else if (playerSelection == "paper" && computerSelection == "scissors") {
-    return "You lose~ scissors beats paper!"
-  } else {
-    return "Tie!"
-  }
+    return "You lose~ scissors beats paper!";
+  } else return "Tie!";
 }
 
-// create a function called playRound(playerSelection, computerSelection)
-  // if ... else statements
-    // plus, return statements || 'you lose' or 'you win'
-    // else, tie
+// execute actual game
+function game(n) {
+  let playerScore = computerScore = 0;
+  let player, computer, result;
 
-// initialize two score variables, which will keep track of the scores
-  // playerScore & computerScore
+  for (let i = 0; i < n; i++)
+  {
+    // assign variables with its corresponding values
+    player = playerPlay(); computer = computerPlay();
+    result = playRound(player, computer);
 
-// have a loop that will iterate the playRound function 5x, called game()
-  // run playerPlay function, then assign its value to a variable
-  // same goes with computerPlay
-  // run playRound, passing these arguments as parameters to the function
-    // increment score of the winning side
-    // if returned string contains 'win', increment playerScore
+    // increment score of winning side
+    if (result.includes('win')) playerScore++;
+    else if (result.includes('lose')) computerScore++;
 
-// print winner, depending on the two score variables
+    // log results for each round
+    console.log(`${player} vs ${computer} \n ${result}`);
+    console.log(`Current score: ${playerScore} vs ${computerScore} \n\n`);
+  }
 
-// game()
+  // print winner
+  if (playerScore > computerScore) console.log("Player wins!");
+  else if (playerScore < computerScore) console.log("Computer wins!");
+  else console.log("Tie!")
+}
+
+// start game
+game(5);  // prepare 5 rounds
