@@ -1,6 +1,8 @@
-// create a function called computerPlay
-  // create the array of choices || rock, paper, scissors
-  // return random choice
+
+function computerPlay() {
+  let choices = ['rock', 'paper', 'scissors']
+  return choices[Math.floor(Math.random() * choices.length)]
+}
 
 // create a function called playRound(playerSelection, computerSelection)
   // if ... else statements
