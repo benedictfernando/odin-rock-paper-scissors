@@ -59,4 +59,38 @@ function game(n) {
 }
 
 // start game
-game(5);  // prepare 5 rounds
+// game(5);  // prepare 5 rounds
+
+
+
+let picks = document.querySelectorAll("button")
+let results = document.getElementById("results");
+let playerScore = Number(document.getElementById("playerScore").textContent);
+let computerScore = Number(document.getElementById("computerScore").textContent);
+let scores = document.getElementById("scores");
+
+picks.forEach(pick => {
+  pick.addEventListener('click', (e) => {
+    results.textContent = playRound(e.target.id, computerPlay());
+    addScore(results.textContent); checkForWinner();
+  })
+});
+
+function addScore(result) {
+  if (result.includes('win')) 
+    document.getElementById("playerScore").textContent = ++playerScore;
+  else if (result.includes('lose')) 
+    document.getElementById("computerScore").textContent = ++computerScore;
+}
+
+function checkForWinner() {
+  if (playerScore === 5) scores.textContent = "Player wins!";
+  else if (computerScore === 5) scores.textContent = "Computer wins!";
+
+  if (playerScore === 5 || computerScore === 5) {
+    results.textContent = "Kindly reload this tab to play again.";
+    picks.forEach(pick => {
+      pick.disabled = true;
+    })
+  }
+}
